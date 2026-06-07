@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+nav {
+    margin-bottom: 30px;
+}
+
+nav a {
+    margin-right: 15px;
+}
+
+.document-text {
+    white-space: pre-wrap;
+    line-height: 1.7;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: #fafafa;
+}
+
+.annotation {
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.ann-color-1 {
+    background-color: #ffe082;
+}
+
+.ann-color-2 {
+    background-color: #80deea;
+}
+
+.ann-color-3 {
+    background-color: #c5e1a5;
+}
+
+.ann-color-4 {
+    background-color: #f8bbd0;
+}
+
+.ann-color-5 {
+    background-color: #d1c4e9;
+}
+
+.ann-color-6 {
+    background-color: #ffccbc;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Semantic.AI{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .annotation {
+            padding: 2px 4px !important;
+            margin: 0 1px !important;
+            border-radius: 4px !important;
+            font-weight: 600 !important;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.15) !important;
+            display: inline-block !important;
+        }
+
+        .ann-color-1 { background-color: #fee2e2 !important; color: #991b1b !important; border-color: #f87171 !important; }
+        .ann-color-2 { background-color: #dbeafe !important; color: #1e40af !important; border-color: #60a5fa !important; }
+        .ann-color-3 { background-color: #dcfce7 !important; color: #166534 !important; border-color: #4ade80 !important; }
+        .ann-color-4 { background-color: #fef9c3 !important; color: #854d0e !important; border-color: #facc15 !important; }
+        .ann-color-5 { background-color: #fae8ff !important; color: #86198f !important; border-color: #c084fc !important; }
+        .ann-color-6 { background-color: #ffedd5 !important; color: #9a3412 !important; border-color: #fb923c !important; }
+
+        .document-text {
+            line-height: 2.3 !important;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-900 antialiased">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+
+                <div class="flex items-center space-x-8">
+                    <a href="{{ url_for('main.index') }}" class="text-xl font-extrabold text-indigo-600 flex items-center space-x-2 tracking-tight">
+                        <span>Semantic<span class="text-slate-400 font-medium">.AI</span></span>
+                    </a>
+                    <nav class="flex space-x-1">
+                        <a href="{{ url_for('projects.list_projects') }}" class="text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-slate-50 px-3 py-2 rounded-lg transition">
+                            Проекты
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center">
+                    <a href="{{ url_for('projects.create_project') }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl shadow-2xs transition gap-1">
+                        <span>＋</span> Новый проект
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-400">
+            &copy; 2026 Система семантического аннотирования документов
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Мои проекты - Semantic.AI{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto pt-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-slate-200 mb-8 gap-4">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                 Ваши проекты
+                <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full font-semibold">{{ projects|length }}</span>
+            </h1>
+        </div>
+        <div>
+            <a href="{{ url_for('projects.create_project') }}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs transition">
+                ＋ Создать проект
+            </a>
+        </div>
+    </div>
+
+    {% if projects %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for project in projects %}
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs hover:border-indigo-300 hover:shadow-xs transition flex flex-col justify-between group relative min-h-[140px]">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-sm font-bold uppercase">
+                        {{ project.name[:2] }}
+                    </div>
+                    <span class="text-slate-300 group-hover:text-indigo-500 transition-colors text-sm">&rarr;</span>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">
+                    <a href="{{ url_for('projects.project_detail', project_id=project.id) }}" class="before:absolute before:inset-0">
+                        {{ project.name }}
+                    </a>
+                </h3>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                <span>Перейти к документам</span>
+                <span class="font-mono text-[10px] text-slate-400">ID: {{ project.id }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300 p-8 max-w-md mx-auto mt-8">
+        <span class="text-4xl block mb-3">📁</span>
+        <h3 class="text-sm font-semibold text-slate-900">Проектов пока нет</h3>
+        <p class="text-xs text-slate-400 mt-2">Вы еще не инициализировали ни одного рабочего пространства. Начните с создания первого проекта.</p>
+        <div class="mt-5">
+            <a href="{{ url_for('projects.create_project') }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs transition">
+                Создать первый проект
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

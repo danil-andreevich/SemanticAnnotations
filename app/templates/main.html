@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Semantic.AI{% endblock %}
+
+{% block content %}
+<div class="mb-12 text-center max-w-3xl mx-auto pt-8">
+
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        Семантический аннотатор на основе генеративного искусственного интеллекта
+    </h1>
+    <p class="mt-4 text-base text-slate-500 leading-relaxed">
+        Выделяйте аннотации в ваших текстах с помощью искусственного интеллекта. Создайте проект, загрузите файлы и выгружайте готовые структурированные таблицы.
+    </p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    
+    <a href="{{ url_for('projects.create_project') }}" class="md:col-span-2 group relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-700 p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[220px]">
+        <div class="absolute -right-6 -bottom-6 text-white/10 text-9xl font-bold select-none group-hover:scale-110 transition-transform duration-300">
+            ⚡
+        </div>
+        <div>
+
+            <h2 class="text-2xl font-bold text-white mt-4">Создать новый проект</h2>
+        </div>
+        <div class="mt-6 flex items-center text-sm font-semibold text-white group-hover:translate-x-1 transition-transform">
+            Начать прямо сейчас <span class="ml-2">&rarr;</span>
+        </div>
+    </a>
+
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between">
+        <div class="space-y-4">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Как устроен процесс</h3>
+            <ul class="space-y-3 text-xs text-slate-600">
+                <li class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-md bg-slate-100 flex items-center justify-center text-slate-700 font-bold text-[10px]">1</span>
+                    <span>Создаёте проект и указываете классы для аннотации</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-md bg-slate-100 flex items-center justify-center text-slate-700 font-bold text-[10px]">2</span>
+                    <span>Вставляете неразмеченный текст или загружаете документ</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-md bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-[10px]">3</span>
+                    <span>Получаете разметку и возможность экспортировать результат</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-8">
+    <a href="{{ url_for('projects.list_projects') }}" class="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700 transition">
+        Перейти к списку существующих проектов <span class="ml-1">&rarr;</span>
+    </a>
+</div>
+{% endblock %}

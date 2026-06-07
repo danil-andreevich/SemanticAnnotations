@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ document.name }}{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{{ url_for('projects.project_detail', project_id=document.project.id) }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1">
+        &larr; Вернуться к проекту "{{ document.project.name }}"
+    </a>
+    <div class="mt-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+             Документ: {{ document.name }}
+        </h1>
+    </div>
+</div>
+
+<div class="space-y-8">
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+            <h2 class="text-base font-semibold text-slate-900 flex items-center gap-2">
+                Визуализация разметки
+            </h2>
+        </div>
+
+        <div class="p-8 text-base text-slate-800 leading-relaxed tracking-normal" style="white-space: pre-wrap;">
+            {{ highlighted_text }}
+        </div>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h2 class="text-base font-semibold text-slate-900 flex items-center gap-2">
+                Извлеченные сущности ({{ document.annotation_items|length }})
+            </h2>
+
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-medium text-slate-400 mr-1">Скачать таблицу:</span>
+
+                <a href="{{ url_for('documents.export_to_csv', document_id=document.id) }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-xs transition">
+                    CSV
+                </a>
+
+                <a href="{{ url_for('documents.export_to_excel', document_id=document.id) }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg shadow-xs transition">
+                    Excel (.xlsx)
+                </a>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                </table>
+        </div>
+    </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Класс</th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Текст фрагмента</th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-24">Старт (Индекс)</th>
+                        <th scope="col" class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-24">Конец (Индекс)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    {% for ann in document.annotation_items %}
+                        <tr class="hover:bg-slate-50/70 transition">
+    <td class="px-6 py-4 whitespace-nowrap">
+        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider border ann-color-{{ (ann.class_id % 6) + 1 }}">
+            {{ ann.annotation_class.name }}
+        </span>
+    </td>
+    <td class="px-6 py-4 text-sm font-medium text-slate-900 break-words max-w-lg">
+        "{{ ann.text_word }}"
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">
+        {{ ann.start_position }}
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 font-mono">
+        {{ ann.end_position }}
+    </td>
+</tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="px-6 py-10 text-center text-sm text-slate-400">
+                                Модель не обнаружила ни одной сущности в данном тексте.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
