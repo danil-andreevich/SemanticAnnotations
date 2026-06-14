@@ -9,16 +9,30 @@
         <p class="text-sm text-slate-500 mt-1">Проект: <span class="font-medium text-slate-700">"{{ project.name }}"</span></p>
     </div>
 
-    <form method="post" class="space-y-6">
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-2">Название документа</label>
-            <input type="text" name="name" required class="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Например: Договор №42 или Статья про ИИ">
+            <input type="text" name="name" required class="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Например: Договор №42 или Отчет по атаке">
         </div>
 
-        <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2">Текст документа</label>
-            <textarea name="content" rows="12" required class="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm transition" placeholder="Вставьте сюда сырой текст для автоматической разметки моделью..."></textarea>
+        <div class="flex flex-col gap-3">
+            <label class="block text-sm font-medium text-slate-700">Текст документа</label>
+            <textarea name="content" rows="12" class="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm transition" placeholder="Вставьте сюда сырой текст для автоматической разметки моделью..."></textarea>
+
+            <div class="pt-1">
+                <input type="file" name="file" accept=".docx,.txt" class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-slate-200 file:text-sm file:font-medium file:bg-slate-50 file:text-slate-700 hover:file:bg-slate-100 file:cursor-pointer cursor-pointer transition">
+            </div>
         </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="p-4 text-sm {% if category == 'error' %}text-red-700 bg-red-50 border border-red-200{% else %}text-slate-700 bg-slate-50 border border-slate-200{% endif %} rounded-lg">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
         <div class="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100">
             <a href="{{ url_for('projects.project_detail', project_id=project.id) }}" class="px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 border border-slate-200 rounded-lg transition">Отмена</a>
